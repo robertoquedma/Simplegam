@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport"content="width=device-width,initial-scale=1"charset="utf-8">
+<title>game</title>
+</head>
+<body style="background-image:url('floor.jpeg')">
+<div class="container1">
+<div class="topleft">
+<img src="goldmoney.png"class="gold">
+<h3 id="coins">R$0,0000</h3>
+<img src="saque.png"id="saque" alt="SAQUE">
+<img src="config.png"id="config" onclick="configsnone(0)">
+</div>
+</div>
+<div id="tablecursor">
+<img src="food1.png" id="food">
+</div>
+<div id="game">
+<img src="fogao.png" id="fogao">
+<img src="panela.png" id="panela">
+<img src="egg.png" id="egg">
+<img src="smoke.png" id="smoke">
+</div>
+<div id="info">
+<img src="close.png"class="close" onclick="configsnone(1)">
+<img src="politica.png" id="politica">
+<img src="termos.png" id="termos">
+<img src="musicaligada.png" id="musica" onclick="ligarmusica()">
+<img src="efeitoligado.png" id="efeito" onclick="ligarefeito()">
+<h4 id="idnumber">ID:75170527</h4>
+<button id="definir" onclick="clienteid()">salvar id</button>
+<button id="salvar" onclick="salvar()">definir id</button>
+</div>
+<div id="kitchen">
+<img src="close2.png" id="close2" onclick="kitchendisplay(0)">
+<img src="pegar.png" id="pegar" onclick="game();">
+</div>
+<div id="kitchen2">
+<img src="option.png" id="option" onclick="kitchendisplay(1)">
+</div>
+<img src="egg0.png"id="egg0" onclick="eggdisplay()">
+<img src="brokeegg.png" id="brokeegg">
+<img src="egg0.png" id="eggtx">
+<img src="catch.png" id="catch">
+<h2 id="comidatxt">COMIDA AINDA NAO ESTA PRONTA</h2>
+<img src="cursor.png" id="help">
+<img src="cursor2.png" id="help2">
+<div id="ganhar">
+<img src="back.png" id="light">
+<img src="earn.png" id="earn">
+<img src="ganhe.png" id="ganhe" onclick="jogou()">
+<h3 id="pegue" onclick="pegue()">PEGUE</h3>
+</div>
+<audio autoplay="autoplay"hidden="true" controls="controls" loop="true"><source src="happy.mp3" type="audio/mp3"></audio>
+<h2 id="cliente">00000000</h2>
+<div id="limit">
+<h4 id="limitxt">sua conta foi limitada UI: 71732674</h4>
+<img src="warning.png"id="warning">
+</div>
+<img src="gold1.png" id="gold1">
+<style>
+#gold1{
+width:70px;height:70px;position:absolute;top:380px;
+left:100px;display:none;
+}
+@keyframes slidecoin{
+100%{
+transform:translateY(-1300px);
+
+}
+0%{
+transform:translateY(50px);
+}
+}
+.gold1slide{
+animation: slidecoin 2s infinite linear;
+}
+#warning{
+width:30px;height:30px;position:fixed;
+top:100px;left:50px;
+}
+#limit{
+display:none;
+border:3px solid;
+width:150px;height:100px;background-color:white;
+position:fixed;top:60px;left:30px;
+text-align:right;
+
+}
+#definir{
+position:fixed;top:420px;left:260px;
+border-radius:20%;background-color:blue;
+}
+#salvar{
+position:fixed;top:420px;left:70px;
+border-radius:20%;background-color:blue;
+}
+#cliente{
+position:fixed;top:100px;
+display:none;
+}
+#pegue{
+position:fixed;top:460px;left:170px;
+color:white; font-size:20px;
+}
+#light{
+width:500px;height:500px;position:fixed;left:-60px;top:50px;
+animation:light 2s infinite linear;
+}
+@keyframes light{
+50%{
+transform:scale(1.2);
+}
+100%{
+transform:scale(1);
+}
+}
+#ganhe{
+width:150px;height:70px;position:fixed;top:400px;
+left:130px; animation: ganhe 2s infinite linear;
+}
+@keyframes ganhe{
+50%{
+transform:scale(1.2);
+}
+100%{
+transform:scale(1);
+}
+}
+#earn{
+width:400px;height:400px;position:fixed;top:50px;
+left:0px;
+}
+#ganhar{
+transition:transform 0.3s linear;
+transform:scale(0);
+width:380px;height:380px;position:fixed;top:150px;left:12px;
+}
+#help2{
+width:100px;height:100px;position:absolute;
+top:150px;left:280px; animation: help2 1s infinite linear;
+display:none;
+}
+#help{
+width:100px;height:100px;position:absolute;
+top:650px;left:70px; animation: help1 1s infinite linear;
+}
+@keyframes help2{
+50%{
+transform:rotate(10deg)
+}
+}
+@keyframes help1{
+50%{
+transform:rotate(-10deg)
+}
+}
+#comidatxt{
+font-size:20px;color:red;text-align:center;top:80px;left:30px;position:fixed;
+font-style:'monaco','Arial','Helvetica','Sans-serif';
+background-color:white;
+
+}
+#option{
+width:70px;height:70px;position:fixed;top:130px;left:350px;
+}
+#close2{
+width:70px;height:70px;position:relative;top:130px;left:290px;
+
+}
+#catch{
+width:200px;height:300px;position:fixed;top:190px;left:100px;
+display:none;
+}
+#kitchen{
+height:400px;width:200px;position:fixed;left:300px;top:140px;border:2px solid; border-radius:10%;
+background-color:#46473E;
+box-shadow:inset 2px 2px 4px black;
+display:none;
+}
+#kitchen2{
+height:400px;width:50px;position:fixed;left:360px;top:140px;border:2px solid; border-radius:10%;
+background-color:#46473E;
+box-shadow:inset 2px 2px 4px black;
+
+}
+#eggtx{
+width:70px;height:70px;top:150px;left:100px;position:fixed;
+display:none;
+}
+#brokeegg{
+width:150px;height:150px;top:130px;left:60px;position:fixed;
+display:none;
+}
+#egg0{
+width:50px;height:50px;top:640px;left:40px;position:fixed;
+
+}
+#pegar{
+width:70px;height:120px;position:fixed;
+top:200px;left:320px;
+}
+#tablecursor{
+width:380px;height:200px;position:fixed;border: 2px solid;top:530px;border-radius:20%;
+background-color:none;
+}
+#egg{
+width:100px;height:100px;position:absolute;
+left:70px;top:50px;
+display:none;
+}
+#food{
+width:380px;height:200px;position:relative;top:0px;
+border-radius:30%;
+}
+#smoke{
+animation: smoke 2s infinite linear;
+display:none;
+
+position:fixed;top:50px;width:100px;height:200px;left:20px;
+}
+@keyframes smoke{
+0%{
+opacity:0%;
+}
+100%{
+opacity:50%;
+}
+}
+#panela{
+width:250px;height:300px;position:absolute;
+top:0px;
+}
+#fogao{
+width:550px;height:350px;position:fixed;left:-75px;top:170px;
+}
+#game{
+width:380px;height:380px;border:2px solid;
+position:fixed;top:150px;left:12px;
+border-radius:10%;
+background-color:#46473E;
+}
+#musica{
+width:140px;height:60px;
+position:fixed;top:200px;
+left:130px;
+}
+#efeito{
+width:140px;height:60px;
+position:fixed;top:280px;
+left:130px;
+}
+#idnumber{
+position:fixed;
+top:400px;left:150px;color:blue;
+}
+#termos{
+width:130px; height:60px;position:fixed;top:360px;left:200px;
+}
+#politica{
+width:130px; height:60px;position:fixed;top:360px;left:70px;
+}
+.close{
+width:50px;height:50px;position:fixed;left:300px;
+}
+#info{
+width:300px;height:300px;border:2px solid;
+position:fixed;top:150px;left:50px;
+border-radius:10%;
+background-color:#46473E;
+box-shadow:inset -3px -3px 4px black;
+display:none;
+
+}
+#config{
+width:60px;height:60px;position:fixed;left:330px;
+top:0px;
+}
+#config:hover{
+transform:scale(0.9);
+}
+
+#saque{
+width:150px;height:60px;position:fixed;left:170px;top:0px;
+animation:withdraw 2s infinite linear;
+
+}
+@keyframes withdraw{
+50%{
+transform:scale(1.1);
+}
+100%{
+transform:scale(1);
+}
+}
+.container1{
+width:390px;height:120px;border:2px solid;
+position:fixed;border-radius:20%;
+top:-60px;
+background-color:#46473E;border:3px solid black;
+box-shadow:inset -2px -2px 10px black;
+}
+#coins{
+position:fixed;top:0px;left:75px;
+font-size:20px;
+}
+.topleft{
+width:170px;height:40px;border:2px solid;
+background-color:#FFD700;border-radius:20%;
+position:fixed;
+box-shadow:inset -5px -1px 1px black;
+top:10px;
+}
+.gold{
+width:60px;height:60px;
+position:fixed;top:0px;
+}
+
+</style>
+
+<script>
+var ativo=false;
+var isgame=false;
+var jogocomecado=false;
+var gamehit=0;
+var money=0;
+var cliente=document.getElementById("cliente");
+var idnumber=document.getElementById("idnumber");
+
+idnumber.innerHTML=localStorage.getItem("idnumber");
+function clienteid(){
+localStorage.setItem("idnumber",idnumber.innerHTML)
+}
+function jogou(){
+ativo=true;
+}
+function pegue(){
+if(ativo==true){
+var gold1=document.getElementById("gold1");
+gold1.style.display="block";
+if(gold1.classList!="gold1slide"){
+gold1.classList.add("gold1slide");
+setTimeout(()=>{
+gold1.classList.remove("gold1slide");
+gold1.style.display="none";
+ativo=false;
+},700)
+}}
+var limitxt=document.getElementById("limitxt");
+var limit=document.getElementById("limit");
+var kitchen=document.getElementById("kitchen");
+var kitchen2=document.getElementById("kitchen2");
+kitchen.style.display="none";
+kitchen2.style.display="block";
+money+=Math.round(Math.random()*100)
+var coinstxt=document.getElementById("coins");
+if(ativo==true){
+coinstxt.innerHTML="R$0,0"+money;
+if(money>1000){
+coinstxt.innerHTML="R$0,"+money;
+}
+if(money>2000){
+coinstxt.innerHTML="R$0,1"+money;
+}
+if(money>3000){
+coinstxt.innerHTML="R$0,2"+money;
+}
+if(money>4000){
+coinstxt.innerHTML="R$0,3"+money;
+}
+if(money>5000){
+coinstxt.innerHTML="R$0,4"+money;
+}
+if(money>6000){
+coinstxt.innerHTML="R$0,5"+money;
+}
+if(money>7000){
+coinstxt.innerHTML="R$0,6"+money;
+}
+if(money>8000){
+coinstxt.innerHTML="R$0,7"+money;
+}
+if(money>9000){
+coinstxt.innerHTML="R$0,8"+money;
+}
+if(money>10000){
+limit.style.display="block"
+limitxt.innerHTML="Sua conta foi limitada ui:"+idnumber.innerHTML;
+}
+var ganhar=document.getElementById("ganhar");
+ganhar.style.transform="scale(0)";
+ganhar.style.left="0px";
+ganhar.style.top="50px";
+}
+}
+function gameloop(){
+var egg=document.getElementById("egg");
+var comidatxt=document.getElementById("comidatxt");
+egg.src="egg.png";
+gamehit=1;
+setTimeout(()=>{
+egg.src="egg.png";
+},5000)
+setTimeout(()=>{
+egg.src="egg1.png";
+gamehit=2;
+},5000)
+setTimeout(()=>{
+if(isgame==true){
+gamehit=3;
+egg.src="egg2.png";
+comidatxt.innerHTML="VOCE DEIXOU A COMIDA QUEIMAR<br/>COMECE DE NOVO";
+}},10000)
+}
+
+function eggdisplay(){
+isgame=true;
+gameloop();
+var smoke=document.getElementById("smoke");
+var help=document.getElementById("help");
+var help2=document.getElementById("help2");
+help.style.display="none";
+smoke.style.display="none";
+var comidatxt=document.getElementById("comidatxt");
+comidatxt.style.left="30px";
+comidatxt.innerHTML="COMIDA AINDA NAO ESTA PRONTA";
+var eggtx=document.getElementById("eggtx");
+var brokeegg=document.getElementById("brokeegg");
+var egg=document.getElementById("egg");
+
+eggtx.style.display="block";
+setTimeout(()=>{
+eggtx.style.display="none";
+brokeegg.style.display="block";
+},200)
+setTimeout(()=>{
+brokeegg.style.display="none";
+egg.style.display="block";
+smoke.style.display="block";
+},500)
+setTimeout(()=>{
+help2.style.display="block"
+help2.style.left="270px";
+help2.style.top="140px";
+},4000)
+}
+function kitchendisplay(define){
+var help2=document.getElementById("help2");
+help2.style.top="220px";
+help2.style.left="240px"
+var kitchen2=document.getElementById("kitchen2");
+var kitchen=document.getElementById("kitchen");
+var close2=document.getElementById("close2");
+
+if(define==1){
+kitchen.style.display="block";
+
+kitchen2.style.display="none";
+}
+
+else if(define==0){
+kitchen.style.display="none";
+kitchen2.style.display="block";
+}
+}
+
+function game(){
+var help=document.getElementById("help");
+var help2=document.getElementById("help2");
+help.style.display="none";
+help2.style.display="none";
+if(gamehit==2){
+isgame=false;
+var catch1=document.getElementById("catch");
+var egg=document.getElementById("egg");
+var ganhar=document.getElementById("ganhar");
+var food=document.getElementById("food");
+var smoke=document.getElementById("smoke");
+var comidatxt=document.getElementById("comidatxt");
+catch1.style.display="block";
+egg.style.display="none";
+smoke.style.display="block";
+food.src="food2.png";
+setTimeout(()=>{
+catch1.style.display="none";
+smoke.style.display="none";
+comidatxt.innerHTML="VOCE JA PREPAROU A COMIDA";
+comidatxt.style.left="50px";
+ganhar.style.display="block";
+ganhar.style.transform="scale(1)"
+ganhar.style.left="1px"
+ganhar.style.top="0px";
+},200)
+}
+}
+
+var musicaligada=1;
+var efeitoligado=1;
+function ligarmusica(){
+musicaligada++;
+if(musicaligada>1){
+musicaligada=0;
+}
+}
+function ligarefeito(){
+efeitoligado++;
+if(efeitoligado>1){
+efeitoligado=0;
+}
+}
+function definircond(){
+var musica=document.getElementById("musica");
+var efeito=document.getElementById("efeito");
+if(musicaligada==0){
+musica.src="musicadesligada.png";
+}
+else if(musicaligada==1){
+musica.src="musicaligada.png";
+}
+if(efeitoligado==0){
+efeito.src="efeitodesligado.png";
+}
+else if(efeitoligado==1){
+efeito.src="efeitoligado.png";
+}
+}
+setInterval(definircond,0);
+function configsnone(define){
+
+if(define==1){
+var info=document.getElementById("info");
+info.style.display="none";}
+if(define==0){
+var info=document.getElementById("info");
+info.style.display="block";}
+}
+function salvar(){
+var num=[35,84,432,64,29,42,29];
+var qtde=num.length;
+var atual=Math.round(Math.random()*qtde)+86428579
+cliente.innerHTML="ID:"+atual;
+idnumber.innerHTML=cliente.innerHTML;
+}
+</script>
+</body>
+</html></DOCTYPE>
